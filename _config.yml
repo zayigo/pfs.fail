@@ -25,7 +25,7 @@ author:
   email: pfs@nlab.pw #optional
   website: https://nlab.pw
 description: >- # this means to ignore newlines until "baseurl:"
-  Foto di PFS OpenFiber in condizioni poco dignitose, perchè sì - @zayigo
+  Foto di PFS OpenFiber in condizioni poco dignitose, perchè sì.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://pfs.fail/" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username:
