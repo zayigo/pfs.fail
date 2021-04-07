@@ -1,0 +1,3 @@
+Convert uppercase jpg extension to lowercase (https://github.com/maxvoltar/photo-stream/issues/62)
+docker build -t arl.fail .
+docker run --rm -it   --volume=/Users/danieledelorenzi/git-sources/daniele/arl.fail:/srv/jekyll   --volume=/Users/danieledelorenzi/git-sources/daniele/arl.fail/vendor/bundle:/photo-stream/_site   arl.fail

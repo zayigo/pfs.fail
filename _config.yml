@@ -18,18 +18,18 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: pfs.fail
-email: pfs@nlab.pw
+title: arl.fail
+email: nomail
 author:
-  name: Nicola
-  email: pfs@nlab.pw #optional
-  website: https://nlab.pw
+  name: Daniele
+  email: nomail #optional
+  website: https://www.fastnetserv.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Foto di PFS OpenFiber in condizioni poco dignitose, perchè sì.
+  Foto di ARL TIM in condizioni poco dignitose, perchè sì.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://pfs.fail/" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://arl.fail/" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username:
-github_username: zayigo
+github_username: dark-vex
 instagram_username:
 
 # Build settings

@@ -1,4 +1,4 @@
-FROM ruby:latest
+FROM ruby:2.7-buster
 
 ENV VIPSVER 8.9.1
 RUN apt update && apt -y upgrade &&\
@@ -16,4 +16,5 @@ RUN ruby -v && gem install bundler jekyll && bundle install
 
 EXPOSE 4000
 
-ENTRYPOINT bundle exec jekyll serve --host 0.0.0.0
+#ENTRYPOINT bundle exec jekyll serve --host 0.0.0.0
+ENTRYPOINT bundle exec jekyll build
