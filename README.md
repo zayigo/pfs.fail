@@ -14,4 +14,4 @@ Puoi farlo da [Github](https://github.com/dark-vex/arl.fail/discussions) creando
 
 Powered by [Photo Stream](https://github.com/maxvoltar/photo-stream)
 
-Special Thanks a [Zaygo](https://github.com/zayigo/pfs.fail) e [rieges](https://forum.fibra.click/u/rieges) per l'idea
+Special Thanks a [zayigo](https://github.com/zayigo/pfs.fail) e [rieges](https://forum.fibra.click/u/rieges) per l'idea
