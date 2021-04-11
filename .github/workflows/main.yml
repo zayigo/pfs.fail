@@ -25,5 +25,5 @@ jobs:
           tags: arl.fail
       - name: Generate static files
         run: |
-          docker run --rm -it --volume=$(PWD):/srv/jekyll --volume=$(PWD)/vendor/bundle:/photo-stream/_site arl.fail
-          ls -lh $(PWD)/vendor/bundle
+          docker run --rm -it --volume=${PWD}:/srv/jekyll --volume=${PWD}/vendor/bundle:/photo-stream/_site arl.fail
+          ls -lh ${PWD}/vendor/bundle
