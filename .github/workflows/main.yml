@@ -17,13 +17,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-      - name: Build image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: false
-          tags: arl.fail
-      - name: Generate static files
+      - name: Build image and generate static files
         run: |
-          docker run --rm -it --volume=${PWD}:/srv/jekyll --volume=${PWD}/vendor/bundle:/photo-stream/_site arl.fail
-          ls -lh ${PWD}/vendor/bundle
+          docker build -t arl.fail .
+          docker run --rm --volume=$PWD:/srv/jekyll --volume=$PWD/vendor/bundle:/photo-stream/_site arl.fail
+          ls -lh $PWD/vendor/bundle
