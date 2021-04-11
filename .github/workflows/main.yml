@@ -1,0 +1,29 @@
+name: Build Docker image and push static file to webhost
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      # Check out code
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Build image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: false
+          tags: arl.fail
+      - name: Generate static files
+        run: |
+          docker run --rm -it --volume=$(PWD):/srv/jekyll --volume=$(PWD)/vendor/bundle:/photo-stream/_site arl.fail
+          ls -lh $(PWD)/vendor/bundle
