@@ -20,5 +20,18 @@ jobs:
       - name: Build image and generate static files
         run: |
           docker build -t arl.fail .
+          rm $PWD/Dockerfile $PWD/build.txt
           docker run --rm --volume=$PWD:/srv/jekyll --volume=$PWD/vendor/bundle:/photo-stream/_site arl.fail
-          ls -lh $PWD/vendor/bundle
+      - name: Scan image
+        id: scan
+        uses: sysdiglabs/scan-action@v3
+        with:
+          image-tag: "arl.fail"
+          sysdig-secure-token: ${{ secrets.SYSDIG_SECURE_TOKEN }}
+          input-type: docker-daemon
+          run-as-user: root
+  
+      - uses: github/codeql-action/upload-sarif@v1
+        if: always()
+        with:
+          sarif_file: ${{ steps.scan.outputs.sarifReport }}
