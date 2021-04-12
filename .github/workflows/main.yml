@@ -9,7 +9,7 @@ on:
     branches: [ master ]
   
 jobs:
-  docker:
+  build_arlfail_buster:
     runs-on: ubuntu-latest
     steps:
       # Check out code
@@ -19,8 +19,8 @@ jobs:
         uses: docker/setup-buildx-action@v1
       - name: Build image and generate static files
         run: |
-          docker build -t arl.fail .
-          rm $PWD/Dockerfile $PWD/build.txt
+          docker build . -f $PWD/Dockerfile.buster -t arl.fail
+          rm $PWD/Dockerfile.* $PWD/build.txt
           docker run --rm --volume=$PWD:/srv/jekyll --volume=$PWD/vendor/bundle:/photo-stream/_site arl.fail
       - name: Scan image
         id: scan
@@ -31,7 +31,36 @@ jobs:
           input-type: docker-daemon
           run-as-user: root
   
-      - uses: github/codeql-action/upload-sarif@v1
+      - name: Sysdig Secure Scan results Debian
+        uses: github/codeql-action/upload-sarif@v1
+        if: always()
+        with:
+          sarif_file: ${{ steps.scan.outputs.sarifReport }}
+
+  build_arlfail_alpine:
+    runs-on: ubuntu-latest
+    steps:
+      # Check out code
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Build image and generate static files
+        run: |
+          docker build . -f $PWD/Dockerfile.alpine -t arl.fail
+          rm $PWD/Dockerfile.* $PWD/build.txt
+          docker run --rm --volume=$PWD:/srv/jekyll --volume=$PWD/vendor/bundle:/photo-stream/_site arl.fail
+      - name: Scan image
+        id: scan
+        uses: sysdiglabs/scan-action@v3
+        with:
+          image-tag: "arl.fail"
+          sysdig-secure-token: ${{ secrets.SYSDIG_SECURE_TOKEN }}
+          input-type: docker-daemon
+          run-as-user: root
+  
+      - name: Sysdig Secure Scan results Alpine
+        uses: github/codeql-action/upload-sarif@v1
         if: always()
         with:
           sarif_file: ${{ steps.scan.outputs.sarifReport }}

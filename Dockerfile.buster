@@ -2,7 +2,8 @@ FROM ruby:2.7-buster
 
 ENV VIPSVER 8.9.1
 RUN apt update && apt -y upgrade &&\
-    apt install -y build-essential
+    apt install -y build-essential &&\
+    apt clean
 
 RUN wget -O ./vips-$VIPSVER.tar.gz https://github.com/libvips/libvips/releases/download/v$VIPSVER/vips-$VIPSVER.tar.gz
 
@@ -16,5 +17,6 @@ RUN ruby -v && gem install bundler jekyll && bundle install
 
 EXPOSE 4000
 
+# Build static files instead of using this Docker image
 #ENTRYPOINT bundle exec jekyll serve --host 0.0.0.0
 ENTRYPOINT bundle exec jekyll build

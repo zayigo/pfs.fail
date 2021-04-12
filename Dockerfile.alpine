@@ -2,7 +2,7 @@ FROM ruby:2.7-alpine
 
 ENV VIPSVER 8.9.1
 RUN apk -U upgrade &&\
-    apk add build-base
+    apk add build-base alpine-sdk glib glib-dev expat-dev
 
 RUN wget -O ./vips-$VIPSVER.tar.gz https://github.com/libvips/libvips/releases/download/v$VIPSVER/vips-$VIPSVER.tar.gz
 
@@ -16,5 +16,6 @@ RUN ruby -v && gem install bundler jekyll && bundle install
 
 EXPOSE 4000
 
+# Build static files instead of using this Docker image
 #ENTRYPOINT bundle exec jekyll serve --host 0.0.0.0
 ENTRYPOINT bundle exec jekyll build
