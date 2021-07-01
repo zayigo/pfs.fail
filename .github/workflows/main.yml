@@ -21,21 +21,18 @@ jobs:
 
       - name: Build image and generate static files
         run: |
-          #docker build . -f $PWD/Dockerfile -t arlo.fail
-          #rm $PWD/Dockerfile $PWD/build.txt
-          #docker run --rm --volume=$PWD:/srv/jekyll --volume=$PWD/vendor/bundle:/photo-stream/_site arl.fail
           bash buildtools/builder.sh
 
       - name: Scan image
         id: scan
         uses: sysdiglabs/scan-action@v3
         with:
-          image-tag: "arlo.fail:nginx"
+          image-tag: "arl.fail:nginx"
           sysdig-secure-token: ${{ secrets.SYSDIG_SECURE_TOKEN }}
           input-type: docker-daemon
           run-as-user: root
   
-      - name: Sysdig Secure Scan results Debian
+      - name: Update Scan results
         uses: github/codeql-action/upload-sarif@v1
         if: always()
         with:
