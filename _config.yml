@@ -75,3 +75,4 @@ image_processing:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+exclude: [Dockerfile, LICENSE]
