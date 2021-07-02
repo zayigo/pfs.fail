@@ -1,5 +1,5 @@
 # Setup builder
-FROM darkvex/fail-build:libvips
+FROM darkvex/fail-builder:libvips
 
 COPY ./ /photo-stream 
 
