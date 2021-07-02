@@ -61,5 +61,5 @@ jobs:
 
       - name: Push image
         run: |
-          docker tag arl.fail:nginx darkvex/fail-builder:arl.fail-${{ steps.release.outputs.version }}
-          docker push darkvex/fail-builder:arl.fail-${{ steps.release.outputs.version }}
+          docker tag arl.fail:nginx darkvex/fail-builder:arl-fail-${{ steps.release.outputs.version }}
+          docker push darkvex/fail-builder:arl-fail-${{ steps.release.outputs.version }}
