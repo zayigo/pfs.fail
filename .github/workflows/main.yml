@@ -9,7 +9,7 @@ on:
     branches: [ master ]
   
 jobs:
-  build_arlofail:
+  build_arlfail:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -59,7 +59,7 @@ jobs:
 
   scan_image:
     runs-on: ubuntu-latest
-    needs: build_arlofail
+    needs: build_arlfail
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
@@ -95,3 +95,16 @@ jobs:
         if: always()
         with:
           sarif_file: ${{ steps.scan.outputs.sarifReport }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: scan_image
+    steps:
+      - name: Run playbook on Ansible Tower
+        run: |
+          curl -X POST ${{ secrets.ANSIBLE_URL }}/api/v2/job_templates/32/launch/ \
+            -H 'Content-Type: application/json' \
+            --user ${{ secrets.ANSIBLE_USER }}:${{ secrets.ANSIBLE_PASSWORD }} \
+            --data '{
+              "docker_image": "docker.io/darkvex/fail-builder:arl-fail-nginx-${{ steps.release.outputs.version }}", "service_name": "${{ secrets.SERVICE_NAME }}"
+              }'
