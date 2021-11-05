@@ -105,6 +105,4 @@ jobs:
           curl -X POST ${{ secrets.ANSIBLE_URL }}/api/v2/job_templates/32/launch/ \
             -H 'Content-Type: application/json' \
             --user ${{ secrets.ANSIBLE_USER }}:${{ secrets.ANSIBLE_PASSWORD }} \
-            --data '{
-              "docker_image": "docker.io/darkvex/fail-builder:arl-fail-nginx-${{ steps.release.outputs.version }}", "service_name": "${{ secrets.SERVICE_NAME }}"
-              }'
+            --data '{"extra_vars": {"docker_image": "docker.io/darkvex/fail-builder:arl-fail-nginx-${{ steps.release.outputs.version }}", "service_name": "${{ secrets.SERVICE_NAME }}"}}'
