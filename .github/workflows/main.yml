@@ -47,7 +47,7 @@ jobs:
 
       - name: Generate static files
         run: |
-          docker buildx build --push --platform linux/amd64,linux/arm64 -t darkvex/fail-builder:arl-fail-nginx-${{ steps.release.outputs.version }} -t darkvex/fail-builder:arl-fail-nginx -f buildtools/Dockerfile.nginx .
+          docker buildx build --push --platform linux/amd64,linux/arm64 -t docker.io/darkvex/fail-builder:arl-fail-nginx-${{ steps.release.outputs.version }} -t docker.io/darkvex/fail-builder:arl-fail-nginx -f buildtools/Dockerfile.nginx .
 
     outputs:
       version: ${{ steps.release.outputs.version }}
@@ -75,12 +75,12 @@ jobs:
   
       - name: Generate static files
         run: |
-          docker pull darkvex/fail-builder:arl-fail-nginx
+          docker pull docker.io/darkvex/fail-builder:arl-fail-nginx
       - name: Scan image
         id: scan
         uses: sysdiglabs/scan-action@v3
         with:
-          image-tag: "darkvex/fail-builder:arl-fail-nginx"
+          image-tag: "docker.io/darkvex/fail-builder:arl-fail-nginx"
           sysdig-secure-token: ${{ secrets.SYSDIG_SECURE_TOKEN }}
           input-type: docker-daemon
           run-as-user: root
