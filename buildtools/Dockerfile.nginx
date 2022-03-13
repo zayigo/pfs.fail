@@ -1,4 +1,6 @@
 # Create nginx container for arl.fail
 FROM nginx:stable-alpine
 
+RUN apk -U upgrade && rm -rf /var/cache/apk/*
+
 COPY ./vendor/bundle /usr/share/nginx/html
