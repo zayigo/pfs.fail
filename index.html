@@ -5,20 +5,23 @@
 <html>
 {% include head.html %}
 <body>
-	{% assign target = "target" %}
-	<ul class="grid" id="{{ target }}">
-		{% assign images = page.images | default: site.static_files | photo_filter %}
-		{% include photos.html %}
-		</ul>
-		<ul class="links">
-			<li class="rss"><a rel="alternate" type="application/rss+xml" href="{{ site.url }}feed.xml" title="RSS Feed">RSS Feed</a></li>
-			<li class="github"><a rel="me" href="https://github.com/zayigo/pfs.fail" title="Invia una foto">Github</a></li>
-			<li class="telegram"><a rel="me" href="http://t.me/zayigo" title="Segnala un pfs maltrattato">Telegram</a></li>
-			<li class="link"><a rel="me" href="https://fibra.click/riconoscere-rete-bul/" title="Non capisco">Wtf?</a></li>
-		</ul>
-		{% include javascript.html %}
-		{% if page.image_slug %}
+	<ul class="grid">
+		{% assign images = site.static_files | photo_filter %}
+		{% for image in images %}
+		{% include photo.html %}
+		{% endfor %}
+	</ul>
+	<ul class="links">
+		<li class="rss"><a rel="alternate" type="application/rss+xml" href="{{ site.url }}/feed.xml" title="RSS Feed">RSS
+				Feed</a></li>
+		<li class="github"><a rel="me" href="https://github.com/zayigo/pfs.fail" title="Invia una foto">Github</a></li>
+		<li class="telegram"><a rel="me" href="http://t.me/zayigo" title="Segnala un pfs maltrattato">Telegram</a></li>
+		<li class="link"><a rel="me" href="https://fibra.click/riconoscere-rete-bul/" title="Non capisco">Wtf?</a></li>
+	</ul>
+	{% include javascript.html %}
+	<!-- {% if page.image_slug %}
 			<script src="{{ '/js/photos.js' | relative_url }}" data-photo-id="{{ page.image_slug }}" data-photo-url="{{ page.image_slug | relative_url }}" data-target-id="{{ target }}"></script>
-		{% endif %}
+		{% endif %} -->
 </body>
+
 </html>
