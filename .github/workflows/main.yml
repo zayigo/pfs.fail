@@ -69,18 +69,13 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASS }}
-
-      #- name: Download artifact
-      #  uses: actions/download-artifact@v2
-      #  with:
-      #    name: Save image version
   
       - name: Generate static files
         run: |
           docker pull docker.io/darkvex/fail-builder:arl-fail-nginx
       - name: Scan image
         id: scan
-        uses: sysdiglabs/scan-action@v3
+        uses: sysdiglabs/scan-action@v4
         with:
           image-tag: "docker.io/darkvex/fail-builder:arl-fail-nginx"
           sysdig-secure-token: ${{ secrets.SYSDIG_SECURE_TOKEN }}
@@ -88,10 +83,10 @@ jobs:
           run-as-user: root
 
       - name: Update Scan results
-        uses: github/codeql-action/upload-sarif@v1
-        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        if: success() || failure() 
         with:
-          sarif_file: ${{ steps.scan.outputs.sarifReport }}
+          sarif_file: ${{ github.workspace }}/sarif.json
 
 #  deploy:
 #    runs-on: ubuntu-latest
