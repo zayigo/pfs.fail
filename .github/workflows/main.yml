@@ -86,7 +86,7 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         if: success() || failure() 
         with:
-          sarif_file: ${{ github.workspace }}/sarif.json
+          sarif_file: ${{ steps.scan.outputs.sarifReport }}/sarif.json
 
 #  deploy:
 #    runs-on: ubuntu-latest
