@@ -1,5 +1,5 @@
 # Create nginx container for arl.fail
-FROM nginx:1.25.3-alpine
+FROM nginx:1.25.4-alpine
 
 RUN apk -U upgrade && rm -rf /var/cache/apk/*
 
