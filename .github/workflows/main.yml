@@ -9,7 +9,9 @@ on:
     branches: [ master ]
     paths:
       - photos/**
-  
+
+permissions: read-all
+
 jobs:
   build_arlfail:
     runs-on: ubuntu-latest
